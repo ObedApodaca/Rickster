@@ -1,63 +1,84 @@
-var datitos = {};
-
-// Usamos async/await para asegurar que los datos lleguen
-
-
-
-//necesitamos 2 funciones, una que traiga mortys, y otra que traiga los ricks
-async function TraerApi() {
-    try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0");
-        datitos = await response.json();
-        console.log("Datos cargados");
-    } catch (error) {
-        console.error("Error cargando la API:", error);
-    }
+var datos = {};
+var count = 0;
+function Extraer(){
+	fetch("https://rickandmortyapi.com/api/character")
+	.then(response => response.json())
+	.then(data => datos = data);
 }
 
-async function Mostrar() {
-    let t = document.getElementById("tarjetas");
-    t.innerHTML = ""; 
+async function Mostrar(){
+        console.log("si");
+	let t = document.getElementById("tarjetas");
+	t.innerHTML = "";
+	for (let i = 0; i < datos.results.length; i++){
+		await fetch(datos.results[i].url)
+		.then(response => response.json())
+		.then(data => {
+            console.log("si");
+		var tarjeta = document.createElement("div");
+		var nombre = document.createElement("h2");
+		var img = document.createElement("img");
+		var audio = document.createElement("audio");
+		var boton = document.createElement("button");
+		var boton2 = document.createElement("button");
+		nombre.innerHTML = datos.results[i].name;
+		boton.textContent = "Shiny";
+		boton2.textContent = "Normal";
+		boton.addEventListener("click", () => {
+		});
+		boton2.addEventListener("click", () => {
+		});
+		boton.style.margin = "10px";
+		boton.style.backgroundColor = "darkblue";
+		boton.style.color = "white";
+		boton2.style.margin = "10px";
+		boton2.style.backgroundColor = "darkblue";
+		boton2.style.color = "white";
 
-    for (let i = 0; i < datitos.results.length; i++) {
-        const response = await fetch(datitos.results[i].url);
-        const data = await response.json();
-
-        var tarjeta = document.createElement("div");
-        var nombre = document.createElement("h2");
-        var img = document.createElement("img");
-        var audio = document.createElement("audio");
-
-        audio.src = data.cries.latest;
-        img.src = data.sprites.front_default;
-        nombre.innerHTML = data.name;
-
-        img.addEventListener("click", function(event) {
-            audio.play();
-            Copiar(data);
-        });
-
-        tarjeta.appendChild(nombre);
-        tarjeta.appendChild(img);
-        t.appendChild(tarjeta);
-    }
+		img.addEventListener("click", function(event){
+			audio.play();
+			count++;
+			if(count <= 6){copiar(data) } else if (count <= 12) {copiar2(data)} else alert("Equipos llenos");
+			
+		});
+		tarjeta.appendChild(nombre);
+		tarjeta.appendChild(img);
+		tarjeta.appendChild(boton), tarjeta.appendChild(boton2);
+		t.appendChild(tarjeta);
+		});
+	}
 }
+async function copiar(data){
+		let t = document.getElementById("equipo1");
+		var tarjeta = document.createElement("div");
+		var nombre = document.createElement("h2");
+		var img = document.createElement("img");
+		var audio = document.createElement("audio");
+		nombre.innerHTML = data.name;
+		img.src = data.sprites.front_default;
+		audio.src = data.cries.latest;
+		img.addEventListener("click", function(event){
+			audio.play();
+		});
+		tarjeta.appendChild(nombre);
+		tarjeta.appendChild(img);
+		t.appendChild(tarjeta);
 
-function Copiar(data) {
-    let e = document.getElementById("equipos");
+}
+async function copiar2(data){
+		let t = document.getElementById("equipo2");
+		var tarjeta = document.createElement("div");
+		var nombre = document.createElement("h2");
+		var img = document.createElement("img");
+		var audio = document.createElement("audio");
+		nombre.innerHTML = data.name;
+		img.src = data.sprites.front_default;
+		audio.src = data.cries.latest;
+		img.addEventListener("click", function(event){
+			audio.play();
+		});
+		tarjeta.appendChild(nombre);
+		tarjeta.appendChild(img);
+		t.appendChild(tarjeta);
 
-    var pokemon = document.createElement("div");
-    pokemon.className = "pokemon-equipo"; 
-    var nombre = document.createElement("h2");
-    var img = document.createElement("img");
-        var audio = document.createElement("audio");
-
-    img.src = data.sprites.front_default;
-    nombre.innerHTML = data.name;
-
-    img.addEventListener("click", () => audio.play());
-
-    pokemon.appendChild(nombre);
-    pokemon.appendChild(img);
-    e.appendChild(pokemon);
 }
