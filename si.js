@@ -1,6 +1,10 @@
 var datitos = {};
 
 // Usamos async/await para asegurar que los datos lleguen
+
+
+
+//necesitamos 2 funciones, una que traiga mortys, y otra que traiga los ricks
 async function TraerApi() {
     try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0");
