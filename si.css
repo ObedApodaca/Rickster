@@ -18,25 +18,42 @@ header{
     width: 100%;
     color: wheat;
 }
+#tablaPersonajes {
+    margin: 20px auto;
+    border-collapse: separate;
+    border-spacing: 15px;
+}
 
-#tarjetas div{
+#tablaPersonajes td {
     background: linear-gradient(gold, orangered);
     border: solid 4px gold;
     border-radius: 5px;
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    height: 250px;
     margin: 5px;
-    display: inline-block;
     text-align: center;
     box-shadow: 3px 3px 2px 2px rgba(0,0,0,0.5);
     transition: 0.3s;
-    vertical-align: top;
+    vertical-align: middle;
+    display: inline-block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#tarjetas div:hover {
-    transform: scale(1.09);
+#tablaPersonajes td:hover {
+    transform: scale(1.05);
     cursor: pointer;
 }
+
+#tablaPersonajes img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    align-content: center;
+}
+
 
 .carta_personaje {
     font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
@@ -54,4 +71,7 @@ header{
     padding: 1rem;
     border-radius: .3rem;
     background-color: #333;
+}
+.flip {
+    transform: rotateY(0deg);
 }
